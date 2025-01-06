@@ -14,11 +14,9 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
-from mysiteProject.views import http_test, json_test  # Ensure this import works
+from django.urls import path, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('http-test', http_test),  # Added trailing slash for consistency
-    path('json-test', json_test),
+    path('', include('mysiteApp.urls')),
 ]
