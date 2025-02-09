@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import *
 from django.http import *
 from mysiteApp.models import Contact
 from mysiteApp.forms import NameForm, ContactForm, NewsletterForm
@@ -23,11 +23,15 @@ def newsletter_view(request):
         form = NewsletterForm(request.POST)
         if form.is_valid():
             form.save()
-            messages.add_message(request, messages.SUCCESS, 'your ticket submited successfully')
-            return HttpResponseRedirect('/')
+            messages.success(request, 'Your subscription was successful!')
+            return redirect('index')  
+        else:
+            print(form.errors)
+            messages.error(request, 'There was an error with your submission.')
     else:
-        messages.add_message(request, messages.ERROR, 'your ticket didnt submited')
-        return HttpResponseRedirect('/')
+        form = NewsletterForm()
+    
+    return render(request, 'templates/newsletter.html', {'form': form})
             
 
 def test_view(request):
