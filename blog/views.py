@@ -28,7 +28,15 @@ def blog_view(request, **kwargs):
 def blog_single(request, pid):
     posts= Post.objects.filter(status=1)
     post = get_object_or_404(posts, pk=pid)  # This will raise 404 if post doesn't exist or is not published.
-    context = {'post': post}
+    
+    previous_post = posts.filter(id__lt=post.id).order_by('-id').first()
+    next_post = posts.filter(id__gt=post.id).order_by('id').first()
+    
+    context = {
+        'post': post,
+        'previous_post': previous_post,
+        'next_post': next_post,
+        }
     return render(request, 'blog/blog-single.html', context)
 
 def test(request):
