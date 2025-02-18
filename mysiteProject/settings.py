@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     'blog',
     'debug_toolbar',
     'taggit',
+    'accounts',
     
 ]
 
